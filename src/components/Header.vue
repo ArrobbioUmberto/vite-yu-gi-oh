@@ -4,6 +4,8 @@ export default {
 }
 </script>
 <template>
-    <h1>TITOLONE GRANDE</h1>
+    <div class="container">
+        <h1>TITOLONE GRANDE</h1>
+    </div>
 </template>
-<style></style>
+<style lang="scss" scoped></style>

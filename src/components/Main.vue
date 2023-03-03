@@ -1,21 +1,27 @@
 <script>
 import axios from 'axios'
 import Cards from './Cards.vue'
+import Numbers from './Numbers.vue'
+import store from '../store'
 export default {
     components: {
-        Cards
+        Cards,
+        Numbers
     },
     data() {
         return {
-            card: [],
+            // card: [],
+            infoNumber: {},
+            store,
         }
     },
     methods: {
         getCards() {
             axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0')
                 .then((res) => {
-                    console.log(res.data.data)
-                    this.card = res.data.data
+                    console.log(res.data)
+                    this.store.card = res.data.data
+                    this.store.total_rows = res.data.meta.total_rows
                 })
         }
     },
@@ -27,8 +33,11 @@ export default {
 <template>
     <main>
         <div class="card-list container">
+            <div>
+                <Numbers></Numbers>
+            </div>
             <ul>
-                <Cards v-for="element in card" :key="element.id" :el="element"></Cards>
+                <Cards v-for="element in store.card" :key="element.id" :el="element"></Cards>
             </ul>
         </div>
     </main>
@@ -48,5 +57,6 @@ ul {
 
 .card-list {
     overflow: auto;
+    padding: 30px 0;
 }
 </style>

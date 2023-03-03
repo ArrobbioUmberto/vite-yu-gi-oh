@@ -1,9 +1,9 @@
 <script>
 import axios from 'axios'
-// import Cards from './Cards.vue'
+import Cards from './Cards.vue'
 export default {
     components: {
-        // Cards
+        Cards
     },
     data() {
         return {
@@ -28,10 +28,7 @@ export default {
     <main>
         <div class="card-list container">
             <ul>
-                <li v-for="el in card" :key="el.id">
-                    <img :src="el.card_images[0].image_url" alt="">
-                    <h3>{{ el.name }}</h3>
-                </li>
+                <Cards v-for="element in card" :key="element.id" :el="element"></Cards>
             </ul>
         </div>
     </main>
@@ -47,17 +44,6 @@ ul {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 10px;
-}
-
-li {
-    background-color: rgba($color: blue, $alpha: 0.5);
-}
-
-h3 {
-    color: white;
-    font-size: 20px;
-    font-weight: 500;
-    text-align: center;
 }
 
 .card-list {

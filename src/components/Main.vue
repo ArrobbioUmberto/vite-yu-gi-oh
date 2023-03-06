@@ -19,11 +19,12 @@ export default {
         getCards() {
             console.log('dentro getCards')
             const search = this.store.search
+            const numberOfCards = this.store.number
             console.log('parola cercata', search)
             axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php', {
                 params: {
                     fname: search,
-                    num: 20,
+                    num: numberOfCards,
                     offset: 0,
                 }
             }).then((res) => {
@@ -43,7 +44,7 @@ export default {
     <main>
         <div class="card-list container">
             <div>
-                <Numbers @onSearch="getCards"></Numbers>
+                <Numbers @onSearch="getCards" @setNumber="getCards"></Numbers>
             </div>
             <ul>
                 <Cards v-for="element in store.card" :key="element.id" :el="element"></Cards>
@@ -54,8 +55,7 @@ export default {
 <style lang="scss" scoped>
 main {
     background-image: url('./img/bg-image.webp');
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-repeat: repeat;
 }
 
 ul {

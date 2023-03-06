@@ -17,10 +17,10 @@ export default {
     },
     methods: {
         getCards() {
-            console.log('dentro getCards')
+            // console.log('dentro getCards')
             const search = this.store.search
             const numberOfCards = this.store.number
-            console.log('parola cercata', search)
+            // console.log('parola cercata', search)
             axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php', {
                 params: {
                     fname: search,
@@ -28,7 +28,7 @@ export default {
                     offset: 0,
                 }
             }).then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 this.store.card = res.data.data
                 this.store.total_rows = res.data.meta.total_rows
             })

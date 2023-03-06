@@ -3,22 +3,27 @@ import store from '../store'
 export default {
     data() {
         return {
+            numberOptions: [
+                20,
+                40,
+                60,
+                100
+            ],
             store
         }
     },
-    methods: {
 
-    }
 
 }
 // console.log(store)
 </script>
 <template>
     <div class="container info">
-        <input @keyup.enter="$emit('onSearch')" type="text" placeholder="Inserisci il nome della carta" v-model="cardName">
-        <!-- <select name="" id="">
-            
-                            </select> -->
+        <input @keyup.enter="$emit('onSearch')" type="text" placeholder="Cerca la tua carta" class="input-search"
+            v-model="store.search">
+        <select @change="$emit('setNumber')" id="" class="searching" v-model="store.number">
+            <option :value="number" v-for="number in numberOptions" :key="number">{{ number }}</option>
+        </select>
         <span class="counter"> 20 di {{ store.total_rows }} carte nel deck </span>
     </div>
 </template>
@@ -39,5 +44,20 @@ span {
     display: flex;
     align-items: center;
     justify-content: space-around;
+}
+
+.input-search {
+    padding: 5px 30px;
+    border: none;
+    border-radius: 25px;
+    height: 25px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.searching {
+    font-size: 16px;
+    border: 2px solid red;
+    padding: 5px 10px;
 }
 </style>

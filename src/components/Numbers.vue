@@ -5,14 +5,21 @@ export default {
         return {
             store
         }
+    },
+    methods: {
+
     }
 
 }
-console.log(store)
+// console.log(store)
 </script>
 <template>
-    <div class="container counter">
-        <span> 20 di {{ store.total_rows }} carte nel deck </span>
+    <div class="container info">
+        <input @keyup.enter="$emit('onSearch')" type="text" placeholder="Inserisci il nome della carta" v-model="cardName">
+        <!-- <select name="" id="">
+            
+                            </select> -->
+        <span class="counter"> 20 di {{ store.total_rows }} carte nel deck </span>
     </div>
 </template>
 <style lang="scss" scoped>
@@ -26,5 +33,11 @@ span {
 
 .counter {
     padding: 20px 0;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 </style>

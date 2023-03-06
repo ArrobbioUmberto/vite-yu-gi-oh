@@ -17,11 +17,19 @@ export default {
     },
     methods: {
         getCards() {
-            axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0')
+            const search = this.store.search
+            axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0', {
+                parameters: {
+                    name: search,
+                }
+            })
                 .then((res) => {
-                    console.log(res.data)
+                    // console.log(res.data)
                     this.store.card = res.data.data
                     this.store.total_rows = res.data.meta.total_rows
+                }).catch((error) => {
+                    this.store.card = []
+                    console.log(error)
                 })
         }
     },
@@ -34,7 +42,7 @@ export default {
     <main>
         <div class="card-list container">
             <div>
-                <Numbers></Numbers>
+                <Numbers @onSearch="getCards"></Numbers>
             </div>
             <ul>
                 <Cards v-for="element in store.card" :key="element.id" :el="element"></Cards>

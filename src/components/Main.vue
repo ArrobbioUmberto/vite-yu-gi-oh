@@ -17,21 +17,22 @@ export default {
     },
     methods: {
         getCards() {
+            console.log('dentro getCards')
             const search = this.store.search
-            axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0', {
-                parameters: {
-                    name: search,
+            console.log('parola cercata', search)
+            axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php', {
+                params: {
+                    fname: search,
+                    num: 20,
+                    offset: 0,
                 }
+            }).then((res) => {
+                console.log(res.data)
+                this.store.card = res.data.data
+                this.store.total_rows = res.data.meta.total_rows
             })
-                .then((res) => {
-                    // console.log(res.data)
-                    this.store.card = res.data.data
-                    this.store.total_rows = res.data.meta.total_rows
-                }).catch((error) => {
-                    this.store.card = []
-                    console.log(error)
-                })
         }
+
     },
     created() {
         this.getCards()
